@@ -1,15 +1,42 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminBackend\AdminController;
+use App\Http\Controllers\AdminBackend\DashboardController;
+use App\Http\Controllers\UserBackend\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+//************ ** Admin Dashboard part************************
+
+Route::middleware(['auth', 'verified','role:admin'])->group(function () {
+// middleware group  start
+
+   Route::controller(AdminController::class)->group(function () {
+       Route::get('admin/dashboard', 'index')->name('admin.dashboard');
+       
+   }); 
+   Route::controller(DashboardController::class)->group(function () {
+       Route::get('admin/dashboard', 'index')->name('admin.dashboard');
+       
+   }); 
+
+
+// middleware group  end
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+//************user dashboard part*************************
+
+Route::middleware(['auth', 'verified','role:user'])->group(function () {
+   Route::controller(UserController::class)->group(function () {
+       Route::get('dashboard', 'index')->name('dashboard');
+       
+   }); 
+
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -18,3 +45,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+include('frontend.php');
