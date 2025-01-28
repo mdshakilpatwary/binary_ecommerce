@@ -14,17 +14,20 @@ Route::middleware(['auth', 'verified','role:admin'])->group(function () {
 // middleware group  start
 
    Route::controller(AdminController::class)->group(function () {
-       Route::get('admin/dashboard', 'index')->name('admin.dashboard');
+       Route::get('admin/logout', 'logout')->name('admin.logout');
        
    }); 
    Route::controller(DashboardController::class)->group(function () {
-       Route::get('admin/dashboard', 'index')->name('admin.dashboard');
+         Route::get('admin/dashboard', 'index')->name('admin.dashboard');
        
    }); 
 
 
 // middleware group  end
 });
+Route::get('/admin', [AdminController::class, 'loginPage'])->name('admin.login.page');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+
 
 
 //************user dashboard part*************************
