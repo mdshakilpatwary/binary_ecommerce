@@ -35,7 +35,7 @@
 		}
 	
 		.toast-success {
-			background-color: #28a745 !important; /* Green for success */
+			background-color: #04bd2f !important; /* Green for success */
 		}
 	
 		.toast-error {

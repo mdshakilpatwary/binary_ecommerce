@@ -26,7 +26,7 @@
 		toastr.options = {
 			"closeButton": true,
 			"progressBar": true,
-			"positionClass": "toast-top-center",
+			"positionClass": "toast-top-right",
 			"timeOut": "5000",
 		};
 	
@@ -36,6 +36,14 @@
 	
 		@if(session('error'))
 			toastr.error("{{ session('error') }}");
+		@endif
+		
+		@if(session('info'))
+			toastr.info("{{ session('info') }}");
+		@endif
+
+		@if(session('warning'))
+			toastr.warning("{{ session('warning') }}");
 		@endif
 	</script>
 </body>

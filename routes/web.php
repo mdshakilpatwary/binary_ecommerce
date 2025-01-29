@@ -25,8 +25,8 @@ Route::middleware(['auth', 'verified','role:admin'])->group(function () {
 
 // middleware group  end
 });
-Route::get('/admin', [AdminController::class, 'loginPage'])->name('admin.login.page');
-Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+Route::get('/admin', [AdminController::class, 'loginPage'])->name('admin.login.page')->middleware('guest');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login')->middleware('guest');
 
 
 

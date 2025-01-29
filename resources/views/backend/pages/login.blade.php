@@ -18,7 +18,7 @@
 
 									</div>
 
-									<div class="login-separater text-center mb-4"> <span>OR SIGN IN WITH EMAIL</span>
+									<div class="login-separater text-center mb-4"> <span>SIGN IN WITH EMAIL</span>
 										<hr/>
 									</div>
 									<div class="form-body">
@@ -46,11 +46,11 @@
 													<label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
 												</div>
 											</div>
-											<div class="col-md-6 text-end">	<a href="authentication-forgot-password.html">Forgot Password ?</a>
+											<div class="col-md-6 text-end">	<a href="{{route('password.request')}}">Forgot Password ?</a>
 											</div>
 											<div class="col-12">
 												<div class="d-grid">
-													<button type="submit" class="btn btn-primary"><i class="bx bxs-lock-open"></i>Sign in</button>
+													<button type="submit" class="btn btn-primary"><i class="bx bxs-lock-open"></i>Login</button>
 												</div>
 											</div>
 										</form>
