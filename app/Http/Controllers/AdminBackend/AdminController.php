@@ -5,7 +5,10 @@ namespace App\Http\Controllers\AdminBackend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use App\Models\User;
+use File;
 class AdminController extends Controller
 {
     public function logout(Request $request){
@@ -25,6 +28,49 @@ class AdminController extends Controller
     public function loginPage(){
         return view('backend.pages.login');
     }
+
+    // admin profile part start
+
+    public function profile(){
+        $user =Auth::user();
+        return view('backend.pages.profile', compact('user'));
+    }
+    public function update(Request $request, $id){
+        $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'name' => 'required|max:150',
+            'phone' => 'required|numeric|digits_between:10,16',
+            'address' => 'required|max:500',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+
+        if($request->file('image')){
+            $manager = new ImageManager(new Driver());
+            if(File::exists(public_path($user->image))){
+                File::delete(public_path($user->image));
+            }
+            $image = $request->file('image');
+            $customName = $request->name . rand() . '.' . $image->getClientOriginalExtension();            
+            $img = $manager->read($image)->resize(400,350);          
+            $img->toPng()->save(public_path('uploads/user/'.$customName)); 
+            $user->image='uploads/user/'.$customName;
+        }
+        $insert = $user->update();
+        if($insert){
+            return redirect()->back()->with('success', 'Successfully Profile Updated');
+
+        }
+        else{
+            return redirect()->back()->with('error', 'Opps! data not Update');
+
+        }
+    }
+    // Admin profile part end
+
     public function login(Request $request){
             // Validate input fields
             $request->validate([

@@ -15,6 +15,8 @@ Route::middleware(['auth', 'verified','role:admin'])->group(function () {
 
    Route::controller(AdminController::class)->group(function () {
        Route::get('admin/logout', 'logout')->name('admin.logout');
+       Route::get('admin/profile', 'profile')->name('admin.profile');
+       Route::post('admin/profile/update/{id}', 'update')->name('admin.profile.update');
        
    }); 
    Route::controller(DashboardController::class)->group(function () {
