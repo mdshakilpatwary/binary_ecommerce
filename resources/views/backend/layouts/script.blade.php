@@ -59,6 +59,9 @@
 		});
 		});
 	</script>
+
+	
+		@yield('script_js')
 </body>
 
 </html>

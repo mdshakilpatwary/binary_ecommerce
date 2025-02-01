@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use File;
 class AdminController extends Controller
@@ -68,6 +69,37 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Opps! data not Update');
 
         }
+    }
+
+    public function password(){
+        $user =Auth::user();
+        return view('backend.pages.profile-password', compact('user'));
+    }
+    public function updatePassword(Request $request, $id){
+
+                $user = User::findOrFail($id);
+                $request->validate([
+                'oldPassword' => 'required',
+                'newPassword' => 'required|min:6',
+                'confirmPassword' => 'required|same:newPassword',
+            ],
+            [
+                'newPassword.require' => 'Your new password is required',
+                'confirmPassword.require' => 'Your confirm password is required',
+            ]);
+        // Check if the old password matches
+            if (!Hash::check($request->oldPassword, $user->password)) {
+                return back()->with('error','The old password is incorrect.');
+            }
+            $user->password = Hash::make($request->newPassword);
+            $msg =$user->update();
+            if($msg){
+
+                return redirect('admin/profile/password')->with('success','Password successfully changed');
+            }
+            else{         
+                return back()->with('error','please try again');
+            }
     }
     // Admin profile part end
 

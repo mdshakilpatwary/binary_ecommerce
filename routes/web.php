@@ -17,6 +17,8 @@ Route::middleware(['auth', 'verified','role:admin'])->group(function () {
        Route::get('admin/logout', 'logout')->name('admin.logout');
        Route::get('admin/profile', 'profile')->name('admin.profile');
        Route::post('admin/profile/update/{id}', 'update')->name('admin.profile.update');
+       Route::get('admin/profile/password', 'password')->name('admin.profile.password');
+       Route::post('admin/profile/password/{id}', 'updatePassword')->name('admin.profile.password.update');
        
    }); 
    Route::controller(DashboardController::class)->group(function () {
