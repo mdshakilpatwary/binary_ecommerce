@@ -15,13 +15,6 @@
 							</ol>
 						</nav>
 					</div>
-                    <div class="ms-auto">
-						<div class="btn-group">
-							<a href="{{route('admin.profile')}}" class="btn btn-secondary">Back Profile</a>
-							
-							</div>
-						</div>
-					</div>
 
 				</div>
 				<!--end breadcrumb-->

@@ -5,13 +5,13 @@
 			<div class="page-content"> 
 				<!--breadcrumb-->
 				<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-					<div class="breadcrumb-title pe-3">User Profile</div>
+					<div class="breadcrumb-title pe-3">Site Info</div>
 					<div class="ps-3">
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0 p-0">
 								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
 								</li>
-								<li class="breadcrumb-item active" aria-current="page">User Profile</li>
+								<li class="breadcrumb-item active" aria-current="page">Site Info</li>
 							</ol>
 						</nav>
 					</div>
@@ -25,15 +25,15 @@
 								<div class="card">
 									<div class="card-body">
 										<div class="d-flex flex-column align-items-center text-center">
-											@if(!empty($user->image))
-											<img src="{{asset($user->image)}}" alt="Admin" class="rounded-circle p-1 bg-primary change_image" width="110">
+											@if(!empty($site_info->logo))
+											<img src="{{asset($site_info->logo)}}" alt="SiteInfo" class=" p-1 change_image" width="110">
 											@else
-											<img src="{{asset('uploads/user/user.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary change_image" width="110">
+											<img src="{{asset('uploads/siteinfo/demologo.webp')}}" alt="SiteInfo" class=" p-1  change_image" width="110">
 											@endif
 											<div class="mt-3">
-												<h4>{{$user->name}}</h4>
+												<h4>{{$site_info->name}}</h4>
 												{{-- <p class="text-secondary mb-1">Full Stack Developer</p> --}}
-												<p class="text-muted font-size-sm">{{$user->address}}</p>
+												<p class="text-muted font-size-sm">{{$site_info->address}}</p>
 												<button class="btn btn-primary">Follow</button>
 												<button class="btn btn-outline-primary">Message</button>
 											</div>
@@ -53,14 +53,14 @@
 							<div class="col-lg-8">
 								<div class="card">
 									<div class="card-body">
-										<form action="{{route('admin.profile.update',$user->id)}}" method="post" enctype="multipart/form-data">
+										<form action="{{route('siteInfo.setting.update',$site_info->id)}}" method="post" enctype="multipart/form-data">
 											@csrf
 											<div class="row mb-3">
 												<div class="col-sm-3">
-													<h6 class="mb-0">Full Name</h6>
+													<h6 class="mb-0">Site Name</h6>
 												</div>
 												<div class="col-sm-9 text-secondary">
-													<input type="text" class="form-control" name="name" value="{{$user->name}}" />
+													<input type="text" class="form-control" name="name" value="{{$site_info->name}}" />
 													@error('name')
 													<p class="text-danger ">{{$message}}</p>
 													@enderror
@@ -71,7 +71,7 @@
 													<h6 class="mb-0">Email</h6>
 												</div>
 												<div class="col-sm-9 text-secondary">
-													<input type="text" class="form-control" name="email" value="{{$user->email}}" />
+													<input type="text" class="form-control" name="email" value="{{$site_info->email}}" />
 													@error('email')
 													<p class="text-danger ">{{$message}}</p>
 													@enderror
@@ -82,7 +82,7 @@
 													<h6 class="mb-0">Phone</h6>
 												</div>
 												<div class="col-sm-9 text-secondary">
-													<input type="text" class="form-control" name="phone" value="{{$user->phone}}" />
+													<input type="text" class="form-control" name="phone" value="{{$site_info->phone}}" />
 													@error('phone')
 													<p class="text-danger ">{{$message}}</p>
 													@enderror
@@ -93,21 +93,65 @@
 													<h6 class="mb-0">Address</h6>
 												</div>
 												<div class="col-sm-9 text-secondary">
-													<input type="text" class="form-control" name="address" value="{{$user->address}}" />
+													<input type="text" class="form-control" name="address" value="{{$site_info->address}}" />
 													@error('address')
 													<p class="text-danger ">{{$message}}</p>
 													@enderror
 												</div>
-	
 											</div>
 											<div class="row mb-3">
 												<div class="col-sm-3">
-													<h6 class="mb-0">Profile image</h6>
+													<h6 class="mb-0">Logo image</h6>
 												</div>
 												<div class="col-sm-9 text-secondary">
-													<input type="file" class="form-control file_image" name="image" />
-													@error('image')
+													<input type="file" class="form-control file_image" name="logo" />
+													@error('logo')
 														<p class="text-danger ">{{$message}}</p>
+													@enderror
+												</div>
+											</div>
+
+                                            <div class="row mb-3">
+												<div class="col-sm-3">
+													<h6 class="mb-0">Short Description</h6>
+												</div>
+												<div class="col-sm-9 text-secondary">
+                                                    <textarea name="description" id="" class="form-control" cols="5" rows="5">{{$site_info->description}}</textarea>
+													@error('description')
+													<p class="text-danger ">{{$message}}</p>
+													@enderror
+												</div>
+											</div>
+                                            <div class="row mb-3">
+												<div class="col-sm-3">
+													<h6 class="mb-0">Facebook link</h6>
+												</div>
+												<div class="col-sm-9 text-secondary">
+													<input type="text" class="form-control" name="facebook" value="{{$site_info->facebook}}" />
+													@error('facebook')
+													<p class="text-danger ">{{$message}}</p>
+													@enderror
+												</div>
+											</div>
+                                            <div class="row mb-3">
+												<div class="col-sm-3">
+													<h6 class="mb-0">Linkdin link</h6>
+												</div>
+												<div class="col-sm-9 text-secondary">
+													<input type="text" class="form-control" name="linkdin" value="{{$site_info->linkdin}}" />
+													@error('linkdin')
+													<p class="text-danger ">{{$message}}</p>
+													@enderror
+												</div>
+											</div>
+                                            <div class="row mb-3">
+												<div class="col-sm-3">
+													<h6 class="mb-0">Instagram link</h6>
+												</div>
+												<div class="col-sm-9 text-secondary">
+													<input type="text" class="form-control" name="instagram" value="{{$site_info->instagram}}" />
+													@error('instagram')
+													<p class="text-danger ">{{$message}}</p>
 													@enderror
 												</div>
 											</div>

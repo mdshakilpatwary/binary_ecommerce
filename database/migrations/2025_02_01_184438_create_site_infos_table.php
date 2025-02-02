@@ -19,6 +19,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
+            $table->text('facebook')->nullable();
+            $table->text('linkdin')->nullable();
+            $table->text('instagram')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->tinyInteger('type')->default(0);
             $table->timestamps();

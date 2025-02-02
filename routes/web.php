@@ -23,6 +23,8 @@ Route::middleware(['auth', 'verified','role:admin'])->group(function () {
    }); 
    Route::controller(DashboardController::class)->group(function () {
          Route::get('admin/dashboard', 'index')->name('admin.dashboard');
+         Route::get('siteInfo/setting', 'setting')->name('siteInfo.setting');
+         Route::post('siteInfo/setting/update/{id}', 'update_setting')->name('siteInfo.setting.update');
        
    }); 
 
