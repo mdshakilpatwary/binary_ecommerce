@@ -11,9 +11,16 @@
 							<ol class="breadcrumb mb-0 p-0">
 								<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
 								</li>
-								<li class="breadcrumb-item active" aria-current="page">User Profilep</li>
+								<li class="breadcrumb-item active" aria-current="page">User Password</li>
 							</ol>
 						</nav>
+					</div>
+                    <div class="ms-auto">
+						<div class="btn-group">
+							<a href="{{route('admin.profile')}}" class="btn btn-secondary">Back Profile</a>
+							
+							</div>
+						</div>
 					</div>
 
 				</div>
@@ -25,7 +32,11 @@
 								<div class="card">
 									<div class="card-body">
 										<div class="d-flex flex-column align-items-center text-center">
+                                            @if(!empty($user->image))
 											<img src="{{asset($user->image)}}" alt="Admin" class="rounded-circle p-1 bg-primary change_image" width="110">
+                                            @else
+											<img src="{{asset('uploads/user/user.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary change_image" width="110">
+                                            @endif
 											<div class="mt-3">
 												<h4>{{$user->name}}</h4>
 												{{-- <p class="text-secondary mb-1">Full Stack Developer</p> --}}

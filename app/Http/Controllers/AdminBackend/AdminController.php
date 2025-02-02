@@ -39,6 +39,7 @@ class AdminController extends Controller
     public function update(Request $request, $id){
         $request->validate([
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'email' => 'required|max:100|email',
             'name' => 'required|max:150',
             'phone' => 'required|numeric|digits_between:10,16',
             'address' => 'required|max:500',
@@ -48,6 +49,9 @@ class AdminController extends Controller
         $user->name = $request->name;
         $user->phone = $request->phone;
         $user->address = $request->address;
+        if ($request->email !== $user->email) {
+            $user->email = $request->email;
+        }
 
         if($request->file('image')){
             $manager = new ImageManager(new Driver());
@@ -107,7 +111,7 @@ class AdminController extends Controller
             // Validate input fields
             $request->validate([
                 'email' => 'required|email|exists:users,email', // Check if the email exists in the users table
-                'password' => 'required|min:6',
+                'password' => 'required|min:4',
             ], [
                 'email.exists' => 'This email is not registered in our system.', // Custom error message
             ]);
